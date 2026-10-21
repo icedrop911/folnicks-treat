@@ -149,6 +149,12 @@ nav button.active{color:var(--primary)}
 .site-foot a{display:block;padding:.1rem 0}
 .site-foot a:hover{color:var(--primary)}
 
+.gal{margin-top:4rem}.gh{font-size:2rem}
+.gallery{columns:2;column-gap:.75rem;margin-top:1.25rem}
+@media(min-width:768px){.gallery{columns:3;column-gap:1rem}}
+.gallery img{width:100%;height:auto;margin:0 0 .75rem;break-inside:avoid;border-radius:1rem;border:1px solid var(--line);cursor:zoom-in;filter:saturate(1.1) contrast(1.04);transition:transform .2s,border-color .2s}
+@media(min-width:768px){.gallery img{margin-bottom:1rem}}
+.gallery img:hover{border-color:var(--primary);transform:translateY(-3px)}
 [hidden]{display:none!important}
 .phero.wide{grid-template-columns:1fr}
 .phero.wide>div{max-width:40rem}
@@ -251,6 +257,21 @@ nav button.active{color:var(--primary)}
     <img src="images/cake-flowers.jpg" alt="Happy Birthday Mum cake with pink cut-out flowers and fresh roses" loading="lazy">
     <div class="item" style="align-self:center"><h3>Made for the moment</h3><p>Tell us the occasion, the colours and the message. We build the cake around it.</p></div>
   </div>
+  <section class="wrap gal"><h2 class="gh">Our cakes</h2><div class="gallery">
+    <img src="images/cake-white-drip.jpg" alt="White drip cake with gold topper" loading="lazy">
+    <img src="images/cake-chocolate.jpg" alt="Chocolate drip cake with biscuits and wafers" loading="lazy">
+    <img src="images/cake-coffee.jpg" alt="Coffee cream cake with chocolate drip and gold coins" loading="lazy">
+    <img src="images/cake-cupcake-tower.jpg" alt="Cupcake tower with red and green icing" loading="lazy">
+    <img src="images/cake-green-pink.jpg" alt="Green striped cake with pink drip and roses" loading="lazy">
+    <img src="images/cake-pink-sprinkle.jpg" alt="Pink drip cake with sprinkle topper" loading="lazy">
+    <img src="images/cake-green-70.jpg" alt="Two-tier green and yellow 70th birthday cake" loading="lazy">
+    <img src="images/cake-black-gold.jpg" alt="Black and gold Best Dad cake with butterfly" loading="lazy">
+    <img src="images/cupcakes-box.jpg" alt="Box of topped cupcakes" loading="lazy">
+    <img src="images/cake-white-butterfly.jpg" alt="White ridged cake with butterfly and gold ball" loading="lazy">
+    <img src="images/cake-blue-spider.jpg" alt="Blue superhero birthday cake" loading="lazy">
+    <img src="images/cake-pink-balloon.jpg" alt="Pink balloon birthday cake with chocolate drip" loading="lazy">
+    <img src="images/cake-spiderweb.jpg" alt="Cream cake with chocolate web pattern" loading="lazy">
+  </div></section>
   <div class="wrap items" style="margin-top:1rem">
     <div class="item"><h3>Birthday Cakes</h3><p>Any flavour, any theme. All eyes on the cake table.</p></div>
     <div class="item"><h3>Wedding Cakes</h3><p>Elegant tiered cakes worthy of the main event.</p></div>
@@ -270,6 +291,14 @@ nav button.active{color:var(--primary)}
     </div>
     <img class="land" src="images/chops.jpg" alt="Small chops cups with chicken, sausage, spring rolls and cucumber">
   </section>
+  <section class="wrap gal"><h2 class="gh">Small chops &amp; pastries</h2><div class="gallery">
+    <img src="images/chops-puff-trays.jpg" alt="Foil trays of puff-puff and small chops" loading="lazy">
+    <img src="images/chops-platter.jpg" alt="Platter of spring rolls, sausage rolls, puff-puff and peppered snail" loading="lazy">
+    <img src="images/chops-trays.jpg" alt="Rows of small chops in foil trays" loading="lazy">
+    <img src="images/pastry-plates.jpg" alt="Pies and doughnuts on yellow plates" loading="lazy">
+    <img src="images/chops-box-1.jpg" alt="Small chops box with spring rolls, samosa, puff-puff and chicken" loading="lazy">
+    <img src="images/chops-box-2.jpg" alt="Large small chops box with spring rolls, plantain and puff-puff" loading="lazy">
+  </div></section>
   <div class="wrap items">
     <div class="item"><h3>Small Chops Cups</h3><p>Single-serve cups, easy to hand out at any event.</p></div>
     <div class="item"><h3>Small Chops Packs</h3><p>Party-ready trays that keep the vibe going.</p></div>
@@ -432,7 +461,7 @@ nav button.active{color:var(--primary)}
   });
   var lb=document.getElementById("lb"), lbi=lb.querySelector("img");
   document.addEventListener("click", function(e){
-    var im=e.target.closest(".phero img, .more img");
+    var im=e.target.closest(".phero img, .more img, .gallery img");
     if (im){ lbi.src=im.src; lbi.alt=im.alt; lb.hidden=false; return; }
     if (e.target.closest("#lb")) lb.hidden=true;
   });
