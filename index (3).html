@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Folnick's Treat: cakes, small chops, pastries, zobo, food and liquid soap. Order on WhatsApp.">
+<title>Folnick's Treat</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Saira+Condensed:wght@400;600&display=swap">
+<style>
+/* Layout: sticky nav, six views switched in place (home, cakes, small chops, drinks, food, contact), neon magenta on near-black. */
+:root{
+  --bg:oklch(0.17 0.008 330);
+  --fg:oklch(0.94 0.012 300);
+  --card:oklch(0.21 0.012 330);
+  --primary:oklch(0.66 0.29 330);
+  --primary-fg:oklch(0.98 0.01 330);
+  --primary-glow:oklch(0.75 0.25 335);
+  --muted:oklch(0.7 0.02 310);
+  --accent:oklch(0.8 0.12 85);
+  --line:oklch(0.32 0.02 330);
+  --glow:0 0 40px -6px color-mix(in oklab,var(--primary) 70%,transparent);
+  --display:"Saira Condensed","Arial Narrow",sans-serif;
+  --sans:"Outfit",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-family:var(--display);letter-spacing:.02em;font-weight:600;text-transform:uppercase;text-wrap:balance}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:72rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.muted{color:var(--muted)}
+.primary{color:var(--primary)}
+
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;border-bottom:1px solid var(--line);background:color-mix(in oklab,var(--bg) 88%,transparent);backdrop-filter:blur(8px)}
+.site-head .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem 1rem;padding-top:.9rem;padding-bottom:.9rem}
+.logo{font-family:var(--display);font-size:1.5rem;font-weight:600;text-transform:uppercase;letter-spacing:.02em;background:none;border:0;padding:0;cursor:pointer}
+.logo span{color:var(--primary)}
+.head-right{display:flex;align-items:center;gap:1rem;min-width:0}
+nav{display:flex;flex-wrap:wrap;gap:.25rem 1.25rem;font-size:.9rem}
+nav button{background:none;border:0;padding:.25rem 0;color:var(--muted);cursor:pointer;transition:color .2s}
+nav button:hover{color:var(--fg)}
+nav button.active{color:var(--primary)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:9999px;background:var(--primary);color:var(--primary-fg);padding:.7rem 1.5rem;font-family:var(--display);font-size:1.15rem;text-transform:uppercase;letter-spacing:.08em;box-shadow:var(--glow);transition:background .2s;border:0;cursor:pointer}
+.btn:hover{background:var(--primary-glow)}
+.btn.sm{padding:.45rem 1rem;font-size:1rem}
+.btn.ghost{background:transparent;border:1px solid var(--line);box-shadow:none;color:var(--fg)}
+.btn.ghost:hover{border-color:var(--primary)}
+.only-lg{display:none}
+@media(min-width:1024px){.only-lg{display:inline-flex}}
+.row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
+
+.hero{display:grid;gap:3rem;align-items:center;padding-top:3rem}
+@media(min-width:768px){.hero{grid-template-columns:1fr 1fr;padding-top:5rem}}
+.hero>*{min-width:0}
+.eyebrow{font-family:var(--display);text-transform:uppercase;letter-spacing:.3em;color:var(--primary)}
+.glow{text-shadow:0 0 24px color-mix(in oklab,var(--primary) 60%,transparent)}
+.hero h1{margin-top:1rem;font-size:3.6rem;line-height:.9}
+@media(min-width:768px){.hero h1{font-size:6rem}}
+.tag{margin-top:1rem;font-family:var(--display);font-size:1.5rem;text-transform:uppercase;letter-spacing:.03em}
+@media(min-width:768px){.tag{font-size:1.875rem}}
+.lead{margin-top:1.25rem;max-width:28rem;font-size:1.1rem}
+.save{margin-top:1rem;font-size:.875rem}
+.save b{font-weight:400;color:var(--fg)}
+.ringwrap{position:relative;margin:0 auto;aspect-ratio:4/5;width:100%;max-width:26rem}
+.neon{position:absolute;inset:0;border:6px solid var(--primary);border-radius:2rem;box-shadow:0 0 30px var(--primary),inset 0 0 30px color-mix(in oklab,var(--primary) 50%,transparent)}
+.ringwrap img{position:absolute;inset:1rem;width:calc(100% - 2rem);height:calc(100% - 2rem);border-radius:1.25rem;object-fit:cover}
+.float{position:absolute;border-radius:9999px;background:var(--card);padding:.5rem 1rem;font-family:var(--display);font-size:.875rem;text-transform:uppercase;letter-spacing:.1em;box-shadow:var(--glow);animation:floaty 4.5s ease-in-out infinite}
+.float.a{left:0;top:2.5rem;border:1px solid var(--primary);color:var(--primary)}
+.float.b{right:0;bottom:3rem;border:1px solid var(--accent);color:var(--accent);animation-delay:1.4s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+.marquee{margin-top:6rem;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--card);padding:1rem 0}
+.track{display:flex;width:max-content;white-space:nowrap;animation:marquee 26s linear infinite}
+.track span{padding:0 1.5rem;font-family:var(--display);font-size:1.5rem;text-transform:uppercase;letter-spacing:.1em;color:var(--primary)}
+.track i{font-style:normal;color:var(--accent)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+.block{margin-top:6rem}
+.big{font-size:2.25rem}
+@media(min-width:768px){.big{font-size:3rem}}
+.cards{display:grid;gap:1.25rem;margin-top:2rem;grid-template-columns:1fr}
+@media(min-width:640px){.cards{grid-template-columns:repeat(2,1fr)}}
+.card{display:block;text-align:left;width:100%;border:1px solid var(--line);background:var(--card);border-radius:1.5rem;overflow:hidden;padding:0;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:var(--glow)}
+.card .imgbox{position:relative;height:21rem;overflow:hidden;background:var(--bg)}
+.card .imgbox::before{content:"";position:absolute;inset:-12px;background:var(--bg-img) center/cover no-repeat;filter:blur(16px) brightness(.5)}
+.card img{position:relative;display:block;width:100%;height:100%;object-fit:contain;transition:transform .5s}
+.card:hover img{transform:scale(1.03)}
+.card .body{padding:1.1rem 1.25rem 1.25rem}
+.card .t{font-family:var(--display);font-size:1.5rem;text-transform:uppercase;line-height:1.1}
+.card .s{margin-top:.25rem;font-size:.875rem;color:var(--muted)}
+.perks{display:grid;gap:1rem}
+@media(min-width:640px){.perks{grid-template-columns:repeat(3,1fr)}}
+.perk{border:1px solid var(--line);background:var(--card);border-radius:1rem;padding:1.5rem;text-align:center;transition:border-color .2s}
+.perk:hover{border-color:var(--primary)}
+.perk .k{font-family:var(--display);font-size:1.25rem;text-transform:uppercase;color:var(--primary)}
+.perk .d{margin-top:.25rem;font-size:.875rem;color:var(--muted)}
+.cta{text-align:center;padding-bottom:1rem}
+.shine{background-image:linear-gradient(90deg,var(--primary),var(--accent),var(--primary));-webkit-background-clip:text;background-clip:text;color:transparent;font-size:3rem}
+@media(min-width:768px){.shine{font-size:4.5rem}}
+.cta p{max-width:28rem;margin:1rem auto 0;font-size:1.1rem}
+.cta .row{justify-content:center}
+
+.phero{display:grid;gap:2.5rem;align-items:center;padding-top:3.5rem}
+@media(min-width:768px){.phero{grid-template-columns:1fr 1fr}}
+.phero>*{min-width:0}
+.phero h1{margin-top:.75rem;font-size:3rem;line-height:1}
+@media(min-width:768px){.phero h1{font-size:3.75rem}}
+.phero .txt{margin-top:1.25rem;max-width:28rem}
+.phero img{width:auto;max-width:100%;height:auto;max-height:34rem;justify-self:center;object-fit:contain;border-radius:1.5rem;border:1px solid var(--line);box-shadow:var(--glow)}
+.phero img.land{width:100%;max-height:none;justify-self:stretch}
+.card.wide{grid-column:1/-1}
+.items{display:grid;gap:1rem;margin-top:4rem}
+@media(min-width:640px){.items{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.items{grid-template-columns:repeat(3,1fr)}}
+.item{border:1px solid var(--line);background:var(--card);border-radius:1rem;padding:1.5rem;transition:transform .2s,border-color .2s}
+.item:hover{transform:translateY(-4px);border-color:var(--primary)}
+.item h3{font-size:1.5rem}
+.item p{margin-top:.5rem;font-size:.875rem;color:var(--muted)}
+.more{display:grid;gap:1rem;margin-top:1rem}
+@media(min-width:640px){.more{grid-template-columns:repeat(2,1fr)}}
+.more img{width:auto;max-width:100%;height:auto;max-height:34rem;justify-self:center;object-fit:contain;border-radius:1.25rem;border:1px solid var(--line)}
+
+.contact{max-width:48rem;margin:0 auto;padding-top:4rem;text-align:center}
+.contact h1{font-size:3.2rem}
+@media(min-width:768px){.contact h1{font-size:3.75rem}}
+.contact .sub{margin-top:1rem}
+.numgrid{display:grid;gap:1rem;margin-top:2.5rem}
+@media(min-width:640px){.numgrid{grid-template-columns:repeat(2,1fr)}}
+.numcard,.igcard{display:block;border:1px solid var(--line);background:var(--card);border-radius:1rem;padding:1.5rem;transition:border-color .2s}
+.numcard:hover{border-color:var(--primary)}
+.numcard small,.igcard small{display:block;font-size:.875rem;color:var(--muted)}
+.numcard .n,.igcard .n{font-family:var(--display);font-size:1.875rem}
+.igcard{margin-top:1rem}
+.contact .row{justify-content:center;margin-top:2.5rem}
+
+.site-foot{margin-top:6rem;border-top:1px solid var(--line)}
+.site-foot .wrap{padding-top:1rem;padding-bottom:1rem;font-size:.875rem}
+.site-foot .h{color:var(--fg)}
+.site-foot .brand{font-family:var(--display);font-size:1.25rem;text-transform:uppercase;color:var(--fg)}
+.site-foot a{display:block;padding:.1rem 0}
+.site-foot a:hover{color:var(--primary)}
+
+[hidden]{display:none!important}
+.phero.wide{grid-template-columns:1fr}
+.phero.wide>div{max-width:40rem}
+.phero img,.more img,.card img{filter:saturate(1.1) contrast(1.04)}
+.phero img,.more img{cursor:zoom-in}
+.phero img.land{border:2px solid color-mix(in oklab,var(--primary) 55%,var(--line));box-shadow:0 0 60px -10px color-mix(in oklab,var(--primary) 75%,transparent)}
+#lb{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:1rem;background:rgba(0,0,0,.9);cursor:zoom-out}
+#lb img{max-width:100%;max-height:100%;border-radius:.75rem}
+.page{display:none}
+.page.show{display:block}
+@media(prefers-reduced-motion:reduce){.track,.float{animation:none}.card:hover,.item:hover,.card:hover img{transform:none}}
+</style>
+</head>
+<body>
+
+
+<header class="site-head">
+  <div class="wrap">
+    <button class="logo" data-go="home" type="button">Folnick's <span>Treat</span></button>
+    <div class="head-right">
+      <nav id="nav" aria-label="Main">
+        <button type="button" data-go="home">Home</button>
+        <button type="button" data-go="cakes">Cakes</button>
+        <button type="button" data-go="chops">Small Chops &amp; Pastries</button>
+        <button type="button" data-go="drinks">Zobo &amp; Drinks</button>
+        <button type="button" data-go="food">Food</button>
+        <button type="button" data-go="soap">Liquid Soap</button>
+        <button type="button" data-go="contact">Contact</button>
+      </nav>
+      <a class="btn sm only-lg wa" href="https://wa.me/2348077253974" target="_blank" rel="noopener noreferrer">Order now</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- HOME -->
+<div class="page" data-page="home">
+  <section class="wrap hero">
+    <div>
+      <p class="eyebrow">Cakes · Small chops · Zobo · Food · Soap</p>
+      <h1 class="glow">Folnick's<br>Treat</h1>
+      <p class="tag">Baked to steal the show</p>
+      <p class="lead muted">Celebration cakes, pastries and small chops, zobo, party food and liquid soap. Send one WhatsApp message and your order is on the way.</p>
+      <div class="row">
+        <a class="btn wa" href="https://wa.me/2348077253974" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a>
+        <button class="btn ghost" type="button" data-go="cakes">See our cakes</button>
+      </div>
+      <p class="save muted">Or save our WhatsApp number: <b>0807 725 3974</b></p>
+    </div>
+    <div class="ringwrap">
+      <div class="neon"></div>
+    <img src="images/folnicks-team.jpeg" alt="The team behind Folnick's Treat" width="660" height="825" style="object-fit:cover;object-position:center">
+      <span class="float a">The Faces Behind the Brand</span>
+<span class="float b">Made with Passion</span>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="track" id="track"></div></div>
+
+  <section class="wrap block">
+    <h2 class="big">Pick your craving</h2>
+    <p class="muted" style="margin-top:.75rem;font-size:1.1rem">Five things to order from us.</p>
+    <div class="cards">
+      <button class="card" type="button" data-go="cakes"><div class="imgbox" style="--bg-img:url(images/cakes.jpg)"><img src="images/cakes.jpg" alt="Red cake with a cream fondant bow and pearls" loading="lazy"></div><div class="body"><p class="t">Cakes <span class="primary">→</span></p><p class="s">Your party's main character</p></div></button>
+      <button class="card" type="button" data-go="chops"><div class="imgbox" style="--bg-img:url(images/chops.jpg)"><img src="images/chops.jpg" alt="Small chops cups with chicken, sausage, spring rolls and cucumber" loading="lazy"></div><div class="body"><p class="t">Small Chops &amp; Pastries <span class="primary">→</span></p><p class="s">Party trays that disappear first</p></div></button>
+      <button class="card" type="button" data-go="drinks"><div class="imgbox" style="--bg-img:url(images/zobo.jpg)"><img src="images/zobo.jpg" alt="Bottled zobo with a custom birthday label" loading="lazy"></div><div class="body"><p class="t">Zobo &amp; Drinks <span class="primary">→</span></p><p class="s">Chilled, bottled, labelled</p></div></button>
+      <button class="card" type="button" data-go="food"><div class="imgbox" style="--bg-img:url(images/food.jpg)"><img src="images/food.jpg" alt="Boxes of jollof rice with chicken and fried plantain" loading="lazy"></div><div class="body"><p class="t">Food <span class="primary">→</span></p><p class="s">Packed and ready to serve</p></div></button>
+      <button class="card wide" type="button" data-go="soap"><div class="imgbox" style="--bg-img:url(images/soap.jpg)"><img src="images/soap.jpg" alt="Bottle of liquid soap with a custom event label" loading="lazy"></div><div class="body"><p class="t">Liquid Soap <span class="primary">→</span></p><p class="s">Bottled and labelled for your event</p></div></button>
+    </div>
+  </section>
+
+  <section class="wrap block">
+    <div class="perks">
+      <div class="perk"><p class="k">Made fresh</p><p class="d">Prepared for your date, never left over.</p></div>
+      <div class="perk"><p class="k">Custom everything</p><p class="d">Your theme, your flavours, your message.</p></div>
+      <div class="perk"><p class="k">One tap to order</p><p class="d">WhatsApp us and consider it done.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap block cta">
+    <h2 class="shine glow">Hungry yet?</h2>
+    <p class="muted">Stop scrolling, start tasting. Send one message and we'll take it from there.</p>
+    <div class="row"><a class="btn wa" href="https://wa.me/2348077253974" target="_blank" rel="noopener noreferrer">Chat us on WhatsApp</a></div>
+  </section>
+</div>
+
+<!-- CAKES -->
+<div class="page" data-page="cakes">
+  <section class="wrap phero">
+    <div>
+      <p class="eyebrow">Fresh out the oven</p>
+      <h1>Cakes</h1>
+      <p class="txt muted">Birthday, wedding and custom cakes, finished with the message, flowers and details you ask for.</p>
+      <div class="row"><a class="btn wa" href="https://wa.me/2348077253974" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a></div>
+      <p class="save muted">Or save our WhatsApp number: <b>0807 725 3974</b></p>
+    </div>
+    <img src="images/cakes.jpg" alt="Red cake with a cream fondant bow and pearls">
+  </section>
+  <div class="wrap more">
+    <img src="images/cake-flowers.jpg" alt="Happy Birthday Mum cake with pink cut-out flowers and fresh roses" loading="lazy">
+    <div class="item" style="align-self:center"><h3>Made for the moment</h3><p>Tell us the occasion, the colours and the message. We build the cake around it.</p></div>
+  </div>
+  <div class="wrap items" style="margin-top:1rem">
+    <div class="item"><h3>Birthday Cakes</h3><p>Any flavour, any theme. All eyes on the cake table.</p></div>
+    <div class="item"><h3>Wedding Cakes</h3><p>Elegant tiered cakes worthy of the main event.</p></div>
+    <div class="item"><h3>Fondant &amp; Flower Cakes</h3><p>Bows, pearls, fresh flowers and gold lettering.</p></div>
+  </div>
+</div>
+
+<!-- SMALL CHOPS -->
+<div class="page" data-page="chops">
+  <section class="wrap phero wide">
+    <div>
+      <p class="eyebrow">Party staples</p>
+      <h1>Small Chops &amp; Pastries</h1>
+      <p class="txt muted">Cups and trays of small chops, plus pies and pastries that disappear before the music starts.</p>
+      <div class="row"><a class="btn wa" href="https://wa.me/2348077253974" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a></div>
+      <p class="save muted">Or save our WhatsApp number: <b>0807 725 3974</b></p>
+    </div>
+    <img class="land" src="images/chops.jpg" alt="Small chops cups with chicken, sausage, spring rolls and cucumber">
+  </section>
+  <div class="wrap items">
+    <div class="item"><h3>Small Chops Cups</h3><p>Single-serve cups, easy to hand out at any event.</p></div>
+    <div class="item"><h3>Small Chops Packs</h3><p>Party-ready trays that keep the vibe going.</p></div>
+    <div class="item"><h3>Meat Pies</h3><p>Flaky, golden and generously filled.</p></div>
+    <div class="item"><h3>Sausage Rolls</h3><p>Crisp pastry around a hot, seasoned filling.</p></div>
+    <div class="item"><h3>Doughnuts</h3><p>Soft, sugared and the first thing to vanish.</p></div>
+    <div class="item"><h3>Chin Chin &amp; Puff-Puff</h3><p>The classics, by the bowl or by the pack.</p></div>
+  </div>
+</div>
+
+<!-- DRINKS -->
+<div class="page" data-page="drinks">
+  <section class="wrap phero">
+    <div>
+      <p class="eyebrow">Chilled and bottled</p>
+      <h1>Zobo &amp; Drinks</h1>
+      <p class="txt muted">Zobo bottled and chilled for events and everyday orders, with a label made for your occasion.</p>
+      <div class="row"><a class="btn wa" href="https://wa.me/2348077253974" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a></div>
+      <p class="save muted">Or save our WhatsApp number: <b>0807 725 3974</b></p>
+    </div>
+    <img src="images/zobo.jpg" alt="Bottled zobo with a custom birthday label">
+  </section>
+  <div class="wrap items">
+    <div class="item"><h3>Zobo</h3><p>Chilled and bottled, ready to hand out.</p></div>
+    <div class="item"><h3>Event Labels</h3><p>Your event name and message on every bottle.</p></div>
+    <div class="item"><h3>Bulk Orders</h3><p>Order ahead for weddings, birthdays and other events.</p></div>
+  </div>
+</div>
+
+<!-- FOOD -->
+<div class="page" data-page="food">
+  <section class="wrap phero wide">
+    <div>
+      <p class="eyebrow">Packed and ready</p>
+      <h1>Food</h1>
+      <p class="txt muted">Jollof rice with chicken and fried plantain, packed in boxes for events, offices and homes.</p>
+      <div class="row"><a class="btn wa" href="https://wa.me/2348077253974" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a></div>
+      <p class="save muted">Or save our WhatsApp number: <b>0807 725 3974</b></p>
+    </div>
+    <img class="land" src="images/food.jpg" alt="Boxes of jollof rice with chicken and fried plantain">
+  </section>
+  <div class="wrap items">
+    <div class="item"><h3>Jollof Rice Boxes</h3><p>Rice, chicken and fried plantain in a sealed box.</p></div>
+    <div class="item"><h3>Event Packs</h3><p>Rice, small chops and drinks together for your party.</p></div>
+    <div class="item"><h3>Bulk Orders</h3><p>Order ahead for weddings, birthdays and office events.</p></div>
+  </div>
+</div>
+
+<!-- SOAP -->
+<div class="page" data-page="soap">
+  <section class="wrap phero">
+    <div>
+      <p class="eyebrow">Bottled and labelled</p>
+      <h1>Liquid Soap</h1>
+      <p class="txt muted">Liquid soap in bottles for homes and events, with your event name or message on the label.</p>
+      <div class="row"><a class="btn wa" href="https://wa.me/2348077253974" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a></div>
+      <p class="save muted">Or save our WhatsApp number: <b>0807 725 3974</b></p>
+    </div>
+    <img src="images/soap.jpg" alt="Bottle of liquid soap with a custom event label">
+  </section>
+  <div class="wrap items">
+    <div class="item"><h3>Liquid Soap</h3><p>Bottled and ready to use at home or at your event.</p></div>
+    <div class="item"><h3>Event Labels</h3><p>Your event name and message on every bottle.</p></div>
+    <div class="item"><h3>Bulk Orders</h3><p>Order ahead for weddings, birthdays and other events.</p></div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="page" data-page="contact">
+  <section class="wrap contact">
+    <h1 class="glow">Let's talk treats</h1>
+    <p class="sub muted">Orders for cakes, small chops, zobo, food and liquid soap. Message us anytime.</p>
+    <div class="numgrid">
+      <a class="numcard" href="https://wa.me/2348077253974" target="_blank" rel="noopener noreferrer"><small>WhatsApp</small><span class="n">0807 725 3974</span></a>
+      <a class="numcard" href="https://wa.me/2348077253973" target="_blank" rel="noopener noreferrer"><small>WhatsApp</small><span class="n">0807 725 3973</span></a>
+    </div>
+    <div class="row"><a class="btn wa" href="https://wa.me/2348077253974" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a></div>
+  </section>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+<!-- Folnick's Treat Contact and Social Links -->
+<section style="text-align:center; padding:45px 20px; background:#111; color:#f5e6d3;">
+
+  <h2 style="margin:0 0 12px;">Folnick's Treat</h2>
+
+  <p style="margin:0 0 28px; line-height:1.9;">
+    Cakes · Small Chops · Zobo · Food · Liquid Soap
+  </p>
+
+  <h3 style="margin-bottom:16px;">Order on WhatsApp</h3>
+
+  <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin-bottom:30px;">
+    <a href="https://wa.me/2348077253974" target="_blank" rel="noopener noreferrer"
+       style="padding:12px 18px; color:#f5e6d3; border:1px solid #b98b62; border-radius:25px; text-decoration:none;">
+      0807 725 3974
+    </a>
+
+    <a href="https://wa.me/2348077253973" target="_blank" rel="noopener noreferrer"
+       style="padding:12px 18px; color:#f5e6d3; border:1px solid #b98b62; border-radius:25px; text-decoration:none;">
+      0807 725 3973
+    </a>
+  </div>
+
+  <div style="width:80%; max-width:400px; height:1px; background:#b98b62; margin:0 auto 25px;"></div>
+
+  <h3 style="margin-bottom:10px;">Follow Folnick's Treat</h3>
+  <p style="margin-bottom:22px;">Stay connected with us for sweet treats and updates!</p>
+
+  <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:12px;">
+    <a href="https://www.facebook.com/share/1FZU6TLNun/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"
+       style="padding:11px 18px; color:#f5e6d3; border:1px solid #b98b62; border-radius:25px; text-decoration:none;">Facebook</a>
+
+    <a href="https://www.tiktok.com/@folnicktreat?_r=1&_t=ZS-9Aiv7oqI4Yu" target="_blank" rel="noopener noreferrer"
+       style="padding:11px 18px; color:#f5e6d3; border:1px solid #b98b62; border-radius:25px; text-decoration:none;">TikTok</a>
+
+    <a href="https://www.instagram.com/folnicks_treat_enterprises?rpxt=MWp6c25zM2x1M3Eycw==" target="_blank" rel="noopener noreferrer"
+       style="padding:11px 18px; color:#f5e6d3; border:1px solid #b98b62; border-radius:25px; text-decoration:none;">Instagram</a>
+
+    <a href="https://www.youtube.com/@folnickstreat" target="_blank" rel="noopener noreferrer"
+       style="padding:11px 18px; color:#f5e6d3; border:1px solid #b98b62; border-radius:25px; text-decoration:none;">YouTube</a>
+  </div>
+
+</section>
+</footer>
+
+<div id="lb" hidden role="dialog" aria-label="Photo"><img alt=""></div>
+
+<script>
+(function(){
+  var msg = encodeURIComponent("Hello Folnick's Treat, I'd like to make an order.");
+  document.querySelectorAll("a.wa").forEach(function(a){ a.href = "https://wa.me/2348077253974?text=" + msg; });
+
+  var items = ["Fresh Daily","Custom Cakes","Small Chops","Zobo & Drinks","Party Food","Liquid Soap","Made to Order"];
+  var html = "";
+  for (var r = 0; r < 4; r++) items.forEach(function(t){ html += "<span>" + t + " <i>✦</i></span>"; });
+  document.getElementById("track").innerHTML = html;
+
+  var titles = {
+    home:"Folnick's Treat",
+    cakes:"Cakes · Folnick's Treat",
+    chops:"Small Chops & Pastries · Folnick's Treat",
+    drinks:"Zobo & Drinks · Folnick's Treat",
+    food:"Food · Folnick's Treat",
+    soap:"Liquid Soap · Folnick's Treat",
+    contact:"Contact · Folnick's Treat"
+  };
+  function show(r){
+    if (!titles[r]) r = "home";
+    document.querySelectorAll(".page").forEach(function(p){ p.classList.toggle("show", p.dataset.page === r); });
+    document.querySelectorAll("#nav button").forEach(function(b){ b.classList.toggle("active", b.dataset.go === r); });
+    document.title = titles[r];
+    window.scrollTo(0,0);
+  }
+  document.addEventListener("click", function(e){
+    var el = e.target.closest("[data-go]");
+    if (el) show(el.dataset.go);
+  });
+  var lb=document.getElementById("lb"), lbi=lb.querySelector("img");
+  document.addEventListener("click", function(e){
+    var im=e.target.closest(".phero img, .more img");
+    if (im){ lbi.src=im.src; lbi.alt=im.alt; lb.hidden=false; return; }
+    if (e.target.closest("#lb")) lb.hidden=true;
+  });
+  document.addEventListener("keydown", function(e){ if (e.key==="Escape") lb.hidden=true; });
+  show("home");
+})();
+</script>
+
+</body>
+</html>
